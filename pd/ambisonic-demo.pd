@@ -1,0 +1,2 @@
+#N canvas 143 279 450 300 10;
+#X obj 182 214 ambi_decode3 3 3 13 6;
