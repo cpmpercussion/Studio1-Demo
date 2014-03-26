@@ -1,0 +1,98 @@
+(sys:load "libs/xtm.xtm")
+(sys:load "libs/core/instruments.xtm")
+
+(define *user-sample-dir* "/Users/charles/src/cloned-projects/Studio1-Demo/sounds")
+(load "/users/charles/src/extempore-hackday/sampler-maps.xtm")
+
+
+(define-sampler crotale sampler_note_hermite_c sampler_fx)
+(define-instrument synth synth_note_c synth_fx)
+
+
+(define *crotale-sample-map*
+  (list *user-sample-dir* (list "crotale-C.wav" 60)))
+
+(sm-load-map crotale *crotale-sample-map*)
+
+(bind-func dsp:[float,float,i64,i64,float*]*
+  (let ((osc (osc_mc_c 0.0))
+        (lpf (lpf_mc_c 2)))
+    (lambda (in time chan dat)
+      (synth in time chan dat)
+      (crotale in time chan dat))))
+(dsp:set! dsp)
+
+(define charlesloop 
+  (lambda (beat dur root)
+    (if (= (modulo beat 1) 0)
+	(play crotale root 80 1))
+    (if (= (modulo beat 3/4) 0)
+	(play crotale (+ (+ root (random '(0 12 24))) (random '(0 4 7 10))) 70 1))
+    (play crotale (+ root 2 24) (cosr 40 30 1/5) .3)
+    (callback (*metro* (+ beat (* .5 dur))) 'charlesloop (+ beat dur) dur 47)))
+(charlesloop (*metro* 'get-beat 4) 1/4 36)
+
+(charlesloop (*metro* 'get-beat 4) 1/4 36)
+
+(play-note (now) crotale 51 140 2000)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Default Synth Def.
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(bind-func synth_note_c
+  (let ((res 1.0)
+        (fxamp 0.0))
+    (lambda (nargs:i64 dargs:SAMPLE*)
+      (let ((oscl (osc_c 0.0))
+            (oscl3 (osc_c 0.0))
+            (oscl2 (osc_c 0.0))
+            (oscr (osc_c 0.25))
+            (saw1 (saw_c 0.0))
+            (saw2 (saw_c 0.0))
+            (lpf1 (lpf_c))
+            (lpf2 (lpf_c))
+            (oscr3 (osc_c 0.25))
+            (oscr2 (osc_c 0.25)))
+        (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
+          (if (< chan 1.0)
+              (* amp (/ 5.0 (log freq)) ;; frequency scale amplitude
+                 (+ (oscl2 1.0 (+ freq (* 10.0 (random))))
+                    (lpf1 (saw1 fxamp freq) (* 5.0 freq) res)
+                    (oscl 0.8 (+ freq (oscl3 (* 2.01 freq)
+                                             (* freq 1.01))))))
+              (* amp (/ 5.0 (log freq)) ;; frequency scale amplitude	       
+                 (+ (oscr2 1.0 (+ freq (* 5.0 (random))))
+                    (lpf2 (saw2 fxamp freq) (* 3.0 freq) res)
+                    (oscr 0.8 (+ freq (oscr3 (* 0.99 freq)
+                                             (* freq 0.99))))))))))))
+
+
+(bind-func synth_fx 262144
+  (let ((dleft (convert (* SAMPLERATE 0.125)))
+        (dlyl (delay_c dleft))
+        (dright (convert (* SAMPLERATE 0.33333333)))
+        (dlyr (delay_c dright))
+        (pan .5)
+        (pan_old pan)
+        (wet 1.0)
+        (fb 0.5))
+    (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
+      (if (< pan_old pan) ;; interpolate pan
+          (set! pan_old (+ pan_old .001))
+          (set! pan_old (- pan_old .001)))
+      (cond ((= chan 0) 
+             (dlyl (* 2.0 pan_old in) wet fb))
+            ((= chan 1)
+             (dlyr (* 2.0 (- 1.0 pan_old) in) wet fb))
+            (else 0.0)))))
+
+(define-instrument synth synth_note_c synth_fx)
+(synth.attack 1000)
+(synth.decay 1000)
+(synth.sustain 0.9)
+(synth.release 7000)
