@@ -14,7 +14,7 @@ Studio 1 has two different surround sound systems installed in an acoustically t
 - patch panels connecting to the other studios for recording
 
 ## How to get started
-Download or clone this project (right hand column) and check out the example files in each folder. You might already have some software that you want to use for sound production, if you don't, check out the paragraph below for some ideas. For how-tos about getting plugged into Studio 1, checkout the[wiki](wiki).
+Download or clone this project (right hand column) and check out the example files in each folder. You might already have some software that you want to use for sound production, if you don't, check out the paragraph below for some ideas. [For how-tos about getting plugged into Studio 1, checkout the wiki](http://github.com/cpmpercussion/Studio1-Demo/wiki).
 
 For more help, shoot me a message (@cpmpercussion on twitter). I'm thinking about making Thursdays at 12pm a drop-in time for demos in Studio 1 - could be fun!
  
