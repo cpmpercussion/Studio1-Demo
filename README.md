@@ -13,6 +13,10 @@ Studio 1 has two different surround sound systems installed in an acoustically t
 - 8 channel audio interface for playing back work
 - patch panels connecting to the other studios for recording
 
+## NB!
+
+The speakers in Studio 1 are expensive and are very loud! Don't send stupid signals through them (e.g. insane outputs from homemade synthesisers) or run them at crazy high levels!
+ 
 ## Example Folders:
 - *Extempore*: This language is the new hotness in computer music and media (partly developed at ANU!) Tough learning curve but lots of possibilities and opportunities for research contributions etc.
 - *Logic*: DAW for Apple computers. I've included a demo composition in 2D surround sound (just uses 4 speakers).
@@ -28,20 +32,3 @@ Usually in an ambisonic system, you position a source in a virtual sound-field u
 
 ## Surround without ambisonics
 You can also create great sound art or compositions by sending different sounds out each loudspeaker directly without bothering with a virtual sound-field. This can be really cool and you don't have to worry as much about having the speakers in the right order or anything.
-
-
-
-
-Speaker Order for SuperCollider:
-Output Number, Speaker Number, Angles
-1,   4    FLU [ 0.78539816339745, 0.61547970867039 ], 
-2,   2 BLU [ 2.3561944901923, 0.61547970867039 ], 
-3,   8 BRU[ -2.3561944901923, 0.61547970867039 ], 
-4,   6 FRU [ -0.78539816339745, 0.61547970867039 ], 
-
-5,   3 FLD [ 0.78539816339745, -0.61547970867039 ], Front Left Down
-6,   1 BLD [ 2.3561944901923, -0.61547970867039 ],  Back Left Down
-7,   7 BRD [ -2.3561944901923, -0.61547970867039 ], Back Right Down
-8,   5 FRD [ -0.78539816339745, -0.61547970867039 ] Front Right Down
-
-#flu, blu, bru, fru, fld, bld, brd, frd
