@@ -17,20 +17,23 @@ s.boot();
 // only use one of these!
 
 // Stereo Decoder
-~decoder = FoaDecoderMatrix.newStereo();
+//~decoder = FoaDecoderMatrix.newStereo();
 
 // Quad Surround Decoder
 // ~decoder = FoaDecoderMatrix.newQuad();
 
 // 3D Surround Decoder (8 speakers for the listening room)
-// ~decoder = FoaDecoderMatrix.newPeri(numChanPairs: 4, elevation: 0.61547970867039, orientation: 'flat', k: 'dual');
+~decoder = FoaDecoderMatrix.newPeri();
 )
+
+// ~decoder = FoaDecoderMatrix.newPeri()
+// ~decoder.dirChannels()
 
 // Ambience Player
 (
 play({
 	var sig = PanB.ar(PlayBuf.ar(~ambience.numChannels,~ambience.bufnum,loop:1)[0],pi,0,0.5) +
-	PanB.ar(PlayBuf.ar(~ambience.numChannels,~ambience.bufnum,loop:1)[1],-pi,0,0.3);
+	PanB.ar(PlayBuf.ar(~ambience.numChannels,~ambience.bufnum,loop:1)[1],-pi,-0.5pi,0.1);
 	FoaDecode.ar(sig,~decoder);
 });
 )
@@ -39,7 +42,7 @@ play({
 (
 play({
     var sig = PanB.ar(PlayBuf.ar(~footsteps.numChannels,~footsteps.bufnum,loop:1),
-		0,-0.5pi,0.4);
+		0,-0.5pi,0.1);
 	FoaDecode.ar(sig,~decoder);
 });
 )
@@ -48,7 +51,7 @@ play({
 (
 play({
 	var sig = PanB.ar(PlayBuf.ar(~snowcrush.numChannels,~snowcrush.bufnum,loop:1),
-		MouseX.kr(pi, -pi),MouseY.kr(pi/2, 0),0.8);
+		MouseX.kr(pi, -pi),MouseY.kr(pi/2, 0),0.3);
 	FoaDecode.ar(sig,~decoder);
 });
 )
@@ -85,9 +88,10 @@ play({
 		loop: 0
 	);
 	var azimuth = MouseX.kr(pi, -pi) * ((200.rand/100) -1)*pi;
-	var elevation = MouseY.kr(pi/2, 0);
+	var elevation = MouseY.kr(pi/4, -pi/4);
 	var bFormatSource = PanB.ar(source,azimuth,elevation,0.3);
 	FoaDecode.ar(bFormatSource,~decoder);
-}
+});
+
 
 )
