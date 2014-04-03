@@ -1,4 +1,6 @@
-# Readme for Reaper Examples
+# Readme for Reaper Example
+
+![Screenshot of the Reaper example project file.](https://github.com/cpmpercussion/Studio1-Demo/raw/master/images/reaper-example.jpg)
 
 For doing "DAW" style production in ambisonics the best choice for the moment is [Reaper - a low-cost DAW](http://www.reaper.fm). The reason is that Reaper is one of the only DAWs that is flexible enough to work with the weird multi-channel formats you need to make ambisonics work (Logic in particular is not happy in 3D surround..).
 
