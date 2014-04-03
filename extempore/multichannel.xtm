@@ -1,28 +1,29 @@
 (sys:load "libs/xtm.xtm")
 (sys:load "libs/core/instruments.xtm")
+(sys:load "libs/external/instruments_ext.xtm")
 
-(define *user-sample-dir* "/Users/charles/src/cloned-projects/Studio1-Demo/sounds")
-(load "/users/charles/src/extempore-hackday/sampler-maps.xtm")
-
+(define *user-sample-dir* "/Users/charles/src/cloned-projects/Studio1-Demo/sounds/")
 
 (define-sampler crotale sampler_note_hermite_c sampler_fx)
 (define-instrument synth synth_note_c synth_fx)
 
+(set-sampler-index crotale (string-append *user-sample-dir* "crotale-C.wav") 60 0 0 0 1)
 
-(define *crotale-sample-map*
-  (list *user-sample-dir* (list "crotale-C.wav" 60)))
+(set-sampler-index drums (string-append drum-path "kick_OH_F_9.wav") *gm-kick* 0 0)
 
-(sm-load-map crotale *crotale-sample-map*)
+
+(define *crotale-sample-map* (list *user-sample-dir* (list "crotale-C.wav" 60)))
+
+
 
 (bind-func dsp:[float,float,i64,i64,float*]*
-  (let ((osc (osc_mc_c 0.0))
-        (lpf (lpf_mc_c 2)))
     (lambda (in time chan dat)
       (synth in time chan dat)
-      (crotale in time chan dat))))
+      (crotale in time chan dat)))
+
 (dsp:set! dsp)
 
-(define charlesloop 
+(define charlesloop
   (lambda (beat dur root)
     (if (= (modulo beat 1) 0)
 	(play crotale root 80 1))
@@ -34,9 +35,13 @@
 
 (charlesloop (*metro* 'get-beat 4) 1/4 36)
 
-(play-note (now) crotale 51 140 2000)
+(play-note (now) crotale 60 127 757118)
 
+(play-note (now) crotale '[60,67,83,112] 127 757118)
 
+(map (lambda (p)
+  (play-note (now) crotale p 100 100000))
+(list 60 67 83 1112))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
