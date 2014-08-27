@@ -1,0 +1,71 @@
+#N canvas 321 298 961 485 10;
+#X obj 352 20 inlet~;
+#X obj 258 427 outlet~;
+#X obj 351 168 monovol 0;
+#X text 385 85 pre fader sends;
+#X text 427 172 main fader;
+#X text 383 298 post fader sends;
+#X obj 442 21 inlet;
+#X obj 495 20 inlet;
+#X obj 546 19 inlet;
+#X obj 601 20 inlet;
+#X obj 513 427 outlet~;
+#X obj 590 426 outlet~;
+#X obj 673 426 outlet~;
+#X obj 106 189 vsl 35 240 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 156 190 vu 35 240 \$0-mainLevelReadout empty -1 -8 0 10 -66577
+-1 1 0;
+#X obj 109 439 hsl 90 15 -1 1 0 0 empty empty Az 95 6 0 10 -262144
+-1 -1 4400 1;
+#X obj 109 460 hsl 90 15 -1 1 0 0 empty empty El 95 6 0 10 -262144
+-1 -1 4450 1;
+#X obj 108 126 hsl 90 15 0 100 0 0 empty empty Pr:1 95 6 0 10 -262144
+-1 -1 0 1;
+#X obj 108 146 hsl 90 15 0 100 0 0 empty empty Pr:2 95 6 0 10 -262144
+-1 -1 0 1;
+#X obj 108 166 hsl 90 15 0 100 0 0 empty empty Po:1 95 6 0 10 -262144
+-1 -1 0 1;
+#X obj 493 75 monovol 0;
+#X obj 643 73 monovol 0;
+#X obj 494 289 monovol 0;
+#X obj 335 377 AmbiPanner~ 0 0;
+#X obj 307 427 outlet~;
+#X obj 358 428 outlet~;
+#X obj 411 427 outlet~;
+#X obj 700 249 s \$0-mainLevelReadout;
+#X obj 700 227 pvu~ 100 300;
+#X obj 21 230 loadbang;
+#X obj 26 271 f 0;
+#X connect 0 0 2 0;
+#X connect 0 0 20 0;
+#X connect 0 0 21 0;
+#X connect 2 0 22 0;
+#X connect 2 0 23 0;
+#X connect 2 0 28 0;
+#X connect 2 1 13 0;
+#X connect 6 0 2 1;
+#X connect 7 0 20 1;
+#X connect 8 0 21 1;
+#X connect 9 0 22 1;
+#X connect 13 0 2 1;
+#X connect 15 0 23 1;
+#X connect 16 0 23 2;
+#X connect 17 0 20 1;
+#X connect 18 0 21 1;
+#X connect 19 0 22 1;
+#X connect 20 0 10 0;
+#X connect 20 1 17 0;
+#X connect 21 0 11 0;
+#X connect 21 1 18 0;
+#X connect 22 0 12 0;
+#X connect 22 1 19 0;
+#X connect 23 0 1 0;
+#X connect 23 1 24 0;
+#X connect 23 2 25 0;
+#X connect 23 3 26 0;
+#X connect 28 0 27 0;
+#X connect 29 0 30 0;
+#X connect 30 0 15 0;
+#X connect 30 0 16 0;
+#X coords 0 -1 1 1 130 380 1 100 100;
