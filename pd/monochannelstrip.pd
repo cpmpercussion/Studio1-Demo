@@ -13,13 +13,13 @@
 #X obj 590 426 outlet~;
 #X obj 673 426 outlet~;
 #X obj 106 189 vsl 35 240 0 100 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 16900 1;
 #X obj 156 190 vu 35 240 \$0-mainLevelReadout empty -1 -8 0 10 -66577
 -1 1 0;
 #X obj 109 439 hsl 90 15 -1 1 0 0 empty empty Az 95 6 0 10 -262144
--1 -1 4400 1;
+-1 -1 2600 1;
 #X obj 109 460 hsl 90 15 -1 1 0 0 empty empty El 95 6 0 10 -262144
--1 -1 4450 1;
+-1 -1 4800 1;
 #X obj 108 126 hsl 90 15 0 100 0 0 empty empty Pr:1 95 6 0 10 -262144
 -1 -1 0 1;
 #X obj 108 146 hsl 90 15 0 100 0 0 empty empty Pr:2 95 6 0 10 -262144
@@ -37,6 +37,10 @@
 #X obj 700 227 pvu~ 100 300;
 #X obj 21 230 loadbang;
 #X obj 26 271 f 0;
+#X obj 655 19 inlet;
+#X obj 708 20 inlet;
+#X text 653 3 Az;
+#X text 706 3 El;
 #X connect 0 0 2 0;
 #X connect 0 0 20 0;
 #X connect 0 0 21 0;
@@ -68,4 +72,6 @@
 #X connect 29 0 30 0;
 #X connect 30 0 15 0;
 #X connect 30 0 16 0;
+#X connect 31 0 15 0;
+#X connect 32 0 16 0;
 #X coords 0 -1 1 1 130 380 1 100 100;
