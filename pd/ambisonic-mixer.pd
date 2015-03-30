@@ -1,4 +1,4 @@
-#N canvas 537 70 1205 620 10;
+#N canvas 402 110 1205 620 10;
 #X declare -path .;
 #X obj 44 -43 declare -path .;
 #X text 57 -68 Elevation and Azimuth are both measured from -1 to 1
